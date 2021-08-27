@@ -15,7 +15,7 @@
         app:layout_constraintGuide_percent="0.5" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/btn"
+        android:id="@+id/startRecordBtn"
         android:layout_width="120dp"
         android:layout_height="140dp"
         android:layout_marginBottom="15dp"
@@ -29,7 +29,7 @@
         app:tint="@color/teal_700" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/message"
+        android:id="@+id/showRecordingsBtn"
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

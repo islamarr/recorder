@@ -3,4 +3,8 @@
     <!--main fragment-->
     <string name="voice_recorder">VoiceRecorder</string>
     <string name="show_recordings">Show Recordings</string>
+    <!--permission dialog-->
+    <string name="permission_message">Microphone permission is needed to record audio</string>
+    <string name="allow">Allow</string>
+    <string name="deny">Deny</string>
 </resources>
