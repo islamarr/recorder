@@ -1,4 +1,4 @@
-package com.islam.recorder.data.db
+package com.islam.recorder.data.db.daos
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

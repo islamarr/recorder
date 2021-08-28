@@ -7,4 +7,7 @@
     <string name="permission_message">Microphone permission is needed to record audio</string>
     <string name="allow">Allow</string>
     <string name="deny">Deny</string>
+    <!--recordings fragment-->
+    <string name="recording">Recording  %1$d</string>
+    <string name="empty_list">No Record currently available</string>
 </resources>
