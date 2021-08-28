@@ -11,7 +11,12 @@ import javax.inject.Inject
 class RecordingsViewModel @Inject constructor(private val recordRepository: RecordRepository) :
     ViewModel() {
 
-    suspend fun getAllRecord() : LiveData<List<Clip>> {
+    suspend fun getAllRecord() : LiveData<MutableList<Clip>> {
         return recordRepository.getAllRecord()
     }
+
+    suspend fun deleteRecord(clipId: Int) {
+        recordRepository.deleteRecord(clipId)
+    }
+
 }

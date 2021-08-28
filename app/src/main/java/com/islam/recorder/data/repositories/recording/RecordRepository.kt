@@ -5,5 +5,7 @@ import com.islam.recorder.data.db.entities.Clip
 
 interface RecordRepository {
 
-    suspend fun getAllRecord() : LiveData<List<Clip>>
+    suspend fun getAllRecord() : LiveData<MutableList<Clip>>
+    suspend fun deleteRecord(id: Int)
+
 }
