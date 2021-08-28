@@ -59,7 +59,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.showRecordingsBtn -> {
-                findNavController().navigate(R.id.action_mainFragment_to_recordingsFragment)
+                findNavController().navigate(MainFragmentDirections.actionMainFragmentToRecordingsFragment())
             }
             R.id.startRecordBtn -> {
 
