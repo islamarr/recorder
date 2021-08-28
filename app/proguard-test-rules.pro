@@ -1,0 +1,19 @@
+-keep class * extends androidx.room.RoomDatabase
+-keep @androidx.room.Entity class *
+-dontwarn androidx.room.paging.**
+-keep class com.islam.recorder.data.db.** { *; }
+
+-ignorewarnings
+-keepattributes *Annotation*
+-dontnote junit.framework.**
+-dontnote junit.runner.**
+-dontwarn android.test.**
+-dontwarn android.support.test.**
+-dontwarn org.junit.**
+-dontwarn org.hamcrest.**
+-dontwarn com.squareup.javawriter.JavaWriter
+-dontwarn org.mockito.**
+-dontwarn androidx.arch.core.executor.testing.**
+-dontwarn androidx.room.**
+-dontwarn com.islam.recorder.data.db.**
+-dontwarn kotlinx.coroutines.**
