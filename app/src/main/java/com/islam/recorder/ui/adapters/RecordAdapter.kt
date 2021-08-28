@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.islam.recorder.R
 import com.islam.recorder.data.db.entities.Clip
 import com.islam.recorder.databinding.ItemClipBinding
+import com.islam.recorder.generalUtils.Utils
 import com.islam.recorder.ui.recordings.RecordPlayer
 
 class RecordAdapter(
@@ -39,7 +40,7 @@ class RecordAdapter(
 
         fun bind(listItems: Clip) {
             label.text = itemView.context.getString(R.string.recording, listItems.id)
-            recordLength.text = listItems.length.toString()
+            recordLength.text = Utils.millisToMinutesAndSeconds(listItems.length)
 
             itemView.setOnClickListener {
                 val recordPlayer = RecordPlayer()

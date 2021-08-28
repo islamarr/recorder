@@ -1,13 +1,12 @@
 package com.islam.recorder.generalUtils
 
 import android.Manifest
-import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.util.Log
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.islam.recorder.BuildConfig
+
 
 object Utils {
 
@@ -23,11 +22,16 @@ object Utils {
         return result == PackageManager.PERMISSION_GRANTED
     }
 
-    fun requestRecordPermission(activity: Activity) {
-        ActivityCompat.requestPermissions(
-            activity,
-            arrayOf(Manifest.permission.RECORD_AUDIO),
-            REQUEST_RECORD_AUDIO_PERMISSION
-        )
+    fun millisToMinutesAndSeconds(millisecond: Long): String {
+        val minutesInt = (millisecond / (1000 * 60)).toInt()
+        val secondsInt = ((millisecond / 1000) % 60).toInt()
+
+        var minutes = minutesInt.toString()
+        var seconds = secondsInt.toString()
+
+        if (minutesInt < 10) minutes = "0$minutes"
+        if (secondsInt < 10) seconds = "0$seconds"
+
+        return "$minutes : $seconds"
     }
 }
