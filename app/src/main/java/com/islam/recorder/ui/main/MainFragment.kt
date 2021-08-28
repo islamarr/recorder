@@ -38,7 +38,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
         RequestPermission()
     ) { result ->
         if (result) {
-            mStartRecording = true
+            mStartRecording = !mStartRecording
             onRecord(mStartRecording)
             changeMicUI(mStartRecording)
         } else {
@@ -65,9 +65,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
             R.id.startRecordBtn -> {
 
                 if (Utils.isRecordPermissionGranted(requireContext())) {
-                    mStartRecording = true
+                    mStartRecording = !mStartRecording
                     onRecord(mStartRecording)
                     changeMicUI(mStartRecording)
+                    if (!mStartRecording) saveInDatabase()
                 } else {
                     showAlertMessage()
                 }
@@ -88,7 +89,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
         mediaRecorder?.release()
         mediaRecorder = null
         if (mStartRecording) saveInDatabase()
-        mStartRecording = !mStartRecording
+        mStartRecording = false
+        changeMicUI(mStartRecording)
     }
 
     private fun saveInDatabase() {
