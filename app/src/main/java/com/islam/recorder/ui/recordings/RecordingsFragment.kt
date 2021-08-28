@@ -64,10 +64,11 @@ class RecordingsFragment : BaseFragment<FragmentRecordingsBinding>() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
 
                 lifecycleScope.launch {
-                    viewModel.deleteRecord(clips[viewHolder.adapterPosition].id)
+                    val clipId = clips[viewHolder.adapterPosition].id
+                    viewModel.deleteRecord(clipId)
                 }
-                clips.removeAt(viewHolder.adapterPosition)
-                recordAdapter.notifyItemRemoved(viewHolder.adapterPosition)
+                //clips.removeAt(viewHolder.adapterPosition)
+                //recordAdapter.notifyItemRemoved(viewHolder.adapterPosition)
 
                 /*
                 val position = viewHolder.adapterPosition
