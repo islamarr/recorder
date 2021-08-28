@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -108,11 +109,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
         player = null
     }
 
-    override fun onResume() {
-        super.onResume()
-        mStartRecording = false
-    }
-
     override fun onStop() {
         super.onStop()
         mediaRecorder?.release()
@@ -120,6 +116,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
         player?.release()
         player = null
         if (mStartRecording) saveInDatabase()
+        mStartRecording = !mStartRecording
     }
 
     private fun saveInDatabase() {
@@ -189,10 +186,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
     private fun changeMicUI(mStartRecording: Boolean) {
         when (mStartRecording) {
             true -> {
-
+                binding?.startRecordBtn?.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gray_700), android.graphics.PorterDuff.Mode.SRC_IN)
             }
             false -> {
-
+                binding?.startRecordBtn?.setColorFilter(ContextCompat.getColor(requireContext(), R.color.teal_700), android.graphics.PorterDuff.Mode.SRC_IN)
             }
         }
     }
