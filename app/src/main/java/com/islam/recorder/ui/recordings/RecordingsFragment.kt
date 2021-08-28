@@ -67,8 +67,8 @@ class RecordingsFragment : BaseFragment<FragmentRecordingsBinding>() {
                     val clipId = clips[viewHolder.adapterPosition].id
                     viewModel.deleteRecord(clipId)
                 }
-                //clips.removeAt(viewHolder.adapterPosition)
-                //recordAdapter.notifyItemRemoved(viewHolder.adapterPosition)
+                clips.removeAt(viewHolder.adapterPosition)
+                recordAdapter.notifyItemRemoved(viewHolder.adapterPosition)
 
                 /*
                 val position = viewHolder.adapterPosition
