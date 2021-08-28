@@ -1,7 +1,6 @@
 package com.islam.recorder.ui.recordings
 
 import android.media.MediaPlayer
-import android.util.Log
 import com.islam.recorder.generalUtils.Utils
 import java.io.IOException
 

@@ -3,7 +3,6 @@ package com.islam.recorder.ui.main
 import android.Manifest
 import android.media.MediaMetadataRetriever
 import android.media.MediaRecorder
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

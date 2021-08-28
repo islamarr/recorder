@@ -10,7 +10,6 @@ data class Clip(
     val file: String,
     val length: Long,
     val isDeleted: Int,
-
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = CURRENT_CLIP_ID

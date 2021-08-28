@@ -16,8 +16,6 @@ import com.islam.recorder.ui.adapters.RecordAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-private const val TAG = "RecordingsFragment"
-
 @AndroidEntryPoint
 class RecordingsFragment : BaseFragment<FragmentRecordingsBinding>() {
 
@@ -70,11 +68,6 @@ class RecordingsFragment : BaseFragment<FragmentRecordingsBinding>() {
                 clips.removeAt(viewHolder.adapterPosition)
                 recordAdapter.notifyItemRemoved(viewHolder.adapterPosition)
 
-                /*
-                val position = viewHolder.adapterPosition
-                recyclerDataArrayList.add(position, deletedCourse)
-                recyclerViewAdapter.notifyItemInserted(position)
-                 */
             }
         }).attachToRecyclerView(binding?.recordList)
     }

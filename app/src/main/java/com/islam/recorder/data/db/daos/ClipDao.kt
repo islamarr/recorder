@@ -19,9 +19,4 @@ interface ClipDao {
     @Query("UPDATE clip SET isDeleted = 1 WHERE id = :clipId")
     suspend fun hideDeletedItem(clipId: Int)
 
-    @Query("SELECT * FROM clip WHERE id = :clipId")
-    fun getClip(clipId: Int): LiveData<Clip>
-
-    @Query("DELETE FROM clip WHERE id = :clipId")
-    fun deleteClip(clipId: Int)
 }
