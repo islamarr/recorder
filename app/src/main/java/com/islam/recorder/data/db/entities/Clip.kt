@@ -7,8 +7,7 @@ const val CURRENT_CLIP_ID = 0
 
 @Entity(tableName = "clip")
 data class Clip(
-    val path: String,
-    val label: String,
+    val file: String,
     val length: Long,
     val isDeleted: Int,
 

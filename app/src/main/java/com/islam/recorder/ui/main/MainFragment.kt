@@ -26,6 +26,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
+import androidx.lifecycle.lifecycleScope
+import com.islam.recorder.data.db.entities.Clip
+import kotlinx.coroutines.launch
+import android.media.MediaMetadataRetriever
+import android.net.Uri
 
 
 private const val TAG = "MainFragment"
@@ -37,6 +42,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
     var mediaRecorder: MediaRecorder? = null
     var mStartRecording = true
     private var player: MediaPlayer? = null
+    private lateinit var filePath: String
     private lateinit var fileName: String
 
     private val mPermissionRequestLauncher = registerForActivityResult(
@@ -60,7 +66,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
         binding?.showRecordingsBtn?.setOnClickListener(this)
         binding?.startRecordBtn?.setOnClickListener(this)
 
-        fileName = "${requireActivity().externalCacheDir?.absolutePath}/audiorecord.3gp"
+        filePath = "${requireActivity().externalCacheDir?.absolutePath}/"
     }
 
     override fun onClick(v: View?) {
@@ -84,6 +90,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
     }
 
     private fun onRecord(start: Boolean) = if (start) {
+        fileName = "Record_${System.currentTimeMillis()}.3gp"
         startRecording()
     } else {
         stopRecording()
@@ -96,7 +103,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
     }
 
     private fun startPlaying() {
-        player = MediaPlayer().apply {
+        /*player = MediaPlayer().apply {
             try {
                 setDataSource(fileName)
                 prepare()
@@ -104,7 +111,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
             } catch (e: IOException) {
                 Log.e(TAG, "prepare() failed")
             }
-        }
+        }*/
     }
 
     private fun stopPlaying() {
@@ -118,13 +125,33 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
         mediaRecorder = null
         player?.release()
         player = null
+        mStartRecording = false
+        onRecord(mStartRecording)
+        saveInDatabase()
+    }
+
+    private fun saveInDatabase() {
+        val clip = getClipData()
+        lifecycleScope.launch {
+            viewModel.saveRecord(clip)
+        }
+    }
+
+    private fun getClipData(): Clip {
+        var recordLength: Long
+        MediaMetadataRetriever().apply {
+            setDataSource(getFile())
+            recordLength = extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)?.toLong()!!
+            release()
+        }
+        return Clip(file = getFile(), length = recordLength, isDeleted = 0)
     }
 
     private fun startRecording() {
         mediaRecorder = MediaRecorder().apply {
             setAudioSource(MediaRecorder.AudioSource.MIC)
             setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
-            setOutputFile(fileName)
+            setOutputFile(getFile())
             setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
 
             try {
@@ -136,6 +163,11 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
             start()
         }
     }
+
+    private fun getFile(): String {
+        return filePath + fileName
+    }
+
 
     private fun stopRecording() {
         mediaRecorder?.apply {
