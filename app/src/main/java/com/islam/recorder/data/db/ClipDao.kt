@@ -14,10 +14,10 @@ interface ClipDao {
     suspend fun upsert(clip: Clip): Long
 
     @Query("SELECT * FROM clip WHERE id = :clipId")
-    suspend fun getClip(clipId: Int): LiveData<Clip>
+    fun getClip(clipId: Int): LiveData<Clip>
 
     @Query("SELECT * FROM clip")
-    suspend fun getAllClips(): LiveData<List<Clip>>
+    fun getAllClips(): LiveData<List<Clip>>
 
     @Query("DELETE FROM clip WHERE id = :clipId")
     fun deleteClip(clipId: Int)

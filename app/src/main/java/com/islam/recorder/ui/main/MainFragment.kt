@@ -10,21 +10,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.islam.recorder.R
 import com.islam.recorder.databinding.FragmentMainBinding
 import com.islam.recorder.generalUtils.REQUEST_RECORD_AUDIO_PERMISSION
 import com.islam.recorder.generalUtils.Utils
 import com.islam.recorder.ui.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.io.IOException
 
 
 private const val TAG = "MainFragment"
 
+@AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
 
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by viewModels()
     var mediaRecorder: MediaRecorder? = null
     var mStartRecording = true
     private var player: MediaPlayer? = null
@@ -34,7 +39,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
         get() = FragmentMainBinding::inflate
 
     override fun setupOnViewCreated(view: View) {
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         binding?.showRecordingsBtn?.setOnClickListener(this)
         binding?.startRecordBtn?.setOnClickListener(this)

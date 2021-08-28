@@ -2,9 +2,12 @@ package com.islam.recorder.data.repositories
 
 import com.islam.recorder.data.db.AppDatabase
 import com.islam.recorder.data.db.entities.Clip
+import javax.inject.Inject
 
-class DefaultMainRepository(private val db: AppDatabase) : MainRepository {
+class DefaultMainRepository @Inject constructor(private val db: AppDatabase) : MainRepository {
+
     override suspend fun saveRecord(clip: Clip) {
-        TODO("Not yet implemented")
+        db.getClipDao().upsert(clip)
     }
+
 }
