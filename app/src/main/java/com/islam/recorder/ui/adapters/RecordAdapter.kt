@@ -1,6 +1,5 @@
 package com.islam.recorder.ui.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -8,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.islam.recorder.R
 import com.islam.recorder.data.db.entities.Clip
 import com.islam.recorder.databinding.ItemClipBinding
-
+import com.islam.recorder.ui.recordings.RecordPlayer
 
 class RecordAdapter(
     private var list: List<Clip>,
@@ -43,13 +42,10 @@ class RecordAdapter(
             recordLength.text = listItems.length.toString()
 
             itemView.setOnClickListener {
-                Log.d("zxcc", "bind: ${listItems.file} ")
+                val recordPlayer = RecordPlayer()
+                recordPlayer.onPlay(true, listItems.file)
             }
         }
     }
 
-    fun updateList(updatedList: MutableList<Clip>) {
-        list = updatedList
-        notifyDataSetChanged()
-    }
 }

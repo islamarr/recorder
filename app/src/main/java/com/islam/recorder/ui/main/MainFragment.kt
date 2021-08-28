@@ -2,7 +2,6 @@ package com.islam.recorder.ui.main
 
 import android.Manifest
 import android.media.MediaMetadataRetriever
-import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.util.Log
 import android.view.LayoutInflater
@@ -24,7 +23,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.io.IOException
 
-
 private const val TAG = "MainFragment"
 
 @AndroidEntryPoint
@@ -33,7 +31,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
     private val viewModel: MainViewModel by viewModels()
     var mediaRecorder: MediaRecorder? = null
     private var mStartRecording = false
-    private var player: MediaPlayer? = null
     private lateinit var filePath: String
     private lateinit var fileName: String
 
@@ -86,35 +83,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
         stopRecording()
     }
 
-    private fun onPlay(start: Boolean) = if (start) {
-        startPlaying()
-    } else {
-        stopPlaying()
-    }
-
-    private fun startPlaying() {
-        /*player = MediaPlayer().apply {
-            try {
-                setDataSource(fileName)
-                prepare()
-                start()
-            } catch (e: IOException) {
-                Log.e(TAG, "prepare() failed")
-            }
-        }*/
-    }
-
-    private fun stopPlaying() {
-        player?.release()
-        player = null
-    }
-
     override fun onStop() {
         super.onStop()
         mediaRecorder?.release()
         mediaRecorder = null
-        player?.release()
-        player = null
         if (mStartRecording) saveInDatabase()
         mStartRecording = !mStartRecording
     }
@@ -186,10 +158,20 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
     private fun changeMicUI(mStartRecording: Boolean) {
         when (mStartRecording) {
             true -> {
-                binding?.startRecordBtn?.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gray_700), android.graphics.PorterDuff.Mode.SRC_IN)
+                binding?.startRecordBtn?.setColorFilter(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.gray_700
+                    ), android.graphics.PorterDuff.Mode.SRC_IN
+                )
             }
             false -> {
-                binding?.startRecordBtn?.setColorFilter(ContextCompat.getColor(requireContext(), R.color.teal_700), android.graphics.PorterDuff.Mode.SRC_IN)
+                binding?.startRecordBtn?.setColorFilter(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.teal_700
+                    ), android.graphics.PorterDuff.Mode.SRC_IN
+                )
             }
         }
     }

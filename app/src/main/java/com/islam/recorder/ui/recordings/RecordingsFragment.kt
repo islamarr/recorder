@@ -20,6 +20,7 @@ private const val TAG = "RecordingsFragment"
 class RecordingsFragment : BaseFragment<FragmentRecordingsBinding>() {
 
     private val viewModel: RecordingsViewModel by viewModels()
+    private val recordPlayer = RecordPlayer()
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentRecordingsBinding
         get() = FragmentRecordingsBinding::inflate
@@ -52,5 +53,9 @@ class RecordingsFragment : BaseFragment<FragmentRecordingsBinding>() {
         }
     }
 
+    override fun onStop() {
+        super.onStop()
 
+        recordPlayer.onPlay(false)
+    }
 }
