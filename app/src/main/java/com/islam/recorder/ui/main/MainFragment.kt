@@ -1,5 +1,6 @@
 package com.islam.recorder.ui.main
 
+import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
@@ -11,8 +12,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.islam.recorder.R
 import com.islam.recorder.databinding.FragmentMainBinding
@@ -20,8 +19,13 @@ import com.islam.recorder.generalUtils.REQUEST_RECORD_AUDIO_PERMISSION
 import com.islam.recorder.generalUtils.Utils
 import com.islam.recorder.ui.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import java.io.IOException
+import androidx.activity.result.ActivityResultCallback
+
+import androidx.activity.result.contract.ActivityResultContracts
+
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 
 
 private const val TAG = "MainFragment"
@@ -34,6 +38,19 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
     var mStartRecording = true
     private var player: MediaPlayer? = null
     private lateinit var fileName: String
+
+    private val mPermissionRequestLauncher = registerForActivityResult(
+        RequestPermission()
+    ) { result ->
+        if (result) {
+            mStartRecording = true
+            onRecord(mStartRecording)
+            changeMicUI(mStartRecording)
+            mStartRecording = !mStartRecording
+        } else {
+            showAlertMessage()
+        }
+    }
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMainBinding
         get() = FragmentMainBinding::inflate
@@ -133,7 +150,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
         builder.setMessage(R.string.permission_message)
 
         builder.setPositiveButton(R.string.allow) { _, _ ->
-            Utils.requestRecordPermission(context as Activity)
+            mPermissionRequestLauncher.launch(Manifest.permission.RECORD_AUDIO)
         }
         builder.setNegativeButton(R.string.deny) { _, _ ->
             Toast.makeText(requireActivity(), R.string.permission_message, Toast.LENGTH_LONG)
@@ -143,24 +160,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
         val alertDialog: AlertDialog = builder.create()
         alertDialog.setCancelable(false)
         alertDialog.show()
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            REQUEST_RECORD_AUDIO_PERMISSION -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                mStartRecording = true
-                onRecord(mStartRecording)
-                changeMicUI(mStartRecording)
-                mStartRecording = !mStartRecording
-            } else {
-                showAlertMessage()
-            }
-        }
     }
 
     private fun changeMicUI(mStartRecording: Boolean) {
