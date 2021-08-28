@@ -1,8 +1,7 @@
 package com.islam.recorder.ui.main
 
 import android.Manifest
-import android.app.Activity
-import android.content.pm.PackageManager
+import android.media.MediaMetadataRetriever
 import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.util.Log
@@ -10,27 +9,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.islam.recorder.R
+import com.islam.recorder.data.db.entities.Clip
 import com.islam.recorder.databinding.FragmentMainBinding
-import com.islam.recorder.generalUtils.REQUEST_RECORD_AUDIO_PERMISSION
 import com.islam.recorder.generalUtils.Utils
 import com.islam.recorder.ui.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.IOException
-import androidx.activity.result.ActivityResultCallback
-
-import androidx.activity.result.contract.ActivityResultContracts
-
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
-import androidx.lifecycle.lifecycleScope
-import com.islam.recorder.data.db.entities.Clip
 import kotlinx.coroutines.launch
-import android.media.MediaMetadataRetriever
-import android.net.Uri
+import java.io.IOException
 
 
 private const val TAG = "MainFragment"
@@ -40,7 +31,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
 
     private val viewModel: MainViewModel by viewModels()
     var mediaRecorder: MediaRecorder? = null
-    var mStartRecording = true
+    private var mStartRecording = false
     private var player: MediaPlayer? = null
     private lateinit var filePath: String
     private lateinit var fileName: String
@@ -52,7 +43,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
             mStartRecording = true
             onRecord(mStartRecording)
             changeMicUI(mStartRecording)
-            mStartRecording = !mStartRecording
         } else {
             showAlertMessage()
         }
@@ -80,7 +70,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
                     mStartRecording = true
                     onRecord(mStartRecording)
                     changeMicUI(mStartRecording)
-                    mStartRecording = !mStartRecording
                 } else {
                     showAlertMessage()
                 }
@@ -119,15 +108,18 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
         player = null
     }
 
+    override fun onResume() {
+        super.onResume()
+        mStartRecording = false
+    }
+
     override fun onStop() {
         super.onStop()
         mediaRecorder?.release()
         mediaRecorder = null
         player?.release()
         player = null
-        mStartRecording = false
-        onRecord(mStartRecording)
-        saveInDatabase()
+        if (mStartRecording) saveInDatabase()
     }
 
     private fun saveInDatabase() {
