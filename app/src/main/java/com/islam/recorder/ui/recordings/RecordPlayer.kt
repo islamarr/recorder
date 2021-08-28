@@ -2,6 +2,7 @@ package com.islam.recorder.ui.recordings
 
 import android.media.MediaPlayer
 import android.util.Log
+import com.islam.recorder.generalUtils.Utils
 import java.io.IOException
 
 private const val TAG = "RecordPlayer"
@@ -23,7 +24,7 @@ class RecordPlayer {
                 prepare()
                 start()
             } catch (e: IOException) {
-                Log.e(TAG, "prepare() failed")
+                Utils.loge(TAG, "prepare() failed")
             }
         }
     }

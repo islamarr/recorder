@@ -10,8 +10,8 @@ import com.islam.recorder.BuildConfig
 
 object Utils {
 
-    fun logD(tag: String, message: String) {
-        if (BuildConfig.DEBUG) Log.d(tag, message)
+    fun loge(tag: String, message: String) {
+        if (BuildConfig.DEBUG) Log.e(tag, message)
     }
 
     fun isRecordPermissionGranted(context: Context?): Boolean {

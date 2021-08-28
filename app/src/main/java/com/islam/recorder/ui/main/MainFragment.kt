@@ -120,7 +120,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
             try {
                 prepare()
             } catch (e: IOException) {
-                Log.e(TAG, "prepare() failed")
+                Utils.loge(TAG, "prepare() failed")
             }
 
             start()
