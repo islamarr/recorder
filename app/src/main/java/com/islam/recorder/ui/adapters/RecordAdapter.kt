@@ -3,6 +3,7 @@ package com.islam.recorder.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.islam.recorder.R
 import com.islam.recorder.data.db.entities.Clip
@@ -10,9 +11,7 @@ import com.islam.recorder.databinding.ItemClipBinding
 import com.islam.recorder.generalUtils.Utils
 import com.islam.recorder.ui.recordings.RecordPlayer
 
-class RecordAdapter(
-    private var list: List<Clip>,
-) : RecyclerView.Adapter<RecordAdapter.ViewHolder>() {
+class RecordAdapter : ListAdapter<Clip, RecordAdapter.ViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -23,12 +22,8 @@ class RecordAdapter(
         )
     }
 
-    override fun getItemCount(): Int {
-        return list.size
-    }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val listItems = list[position]
+        val listItems = getItem(position)
 
         holder.bind(listItems)
 

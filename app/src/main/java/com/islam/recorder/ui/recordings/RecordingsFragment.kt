@@ -74,7 +74,8 @@ class RecordingsFragment : BaseFragment<FragmentRecordingsBinding>() {
 
     private fun initRecyclerView(clips: MutableList<Clip>) {
         binding?.recordList?.apply {
-            recordAdapter = RecordAdapter(clips)
+            recordAdapter = RecordAdapter()
+            recordAdapter.submitList(clips)
             layoutManager = LinearLayoutManager(requireActivity())
             adapter = recordAdapter
             scheduleLayoutAnimation()
