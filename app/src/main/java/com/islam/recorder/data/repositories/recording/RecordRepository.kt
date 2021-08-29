@@ -7,5 +7,6 @@ interface RecordRepository {
 
     suspend fun getAllRecord(): LiveData<MutableList<Clip>>
     suspend fun deleteRecord(id: Int)
+    suspend fun undoClip(id: Int)
 
 }

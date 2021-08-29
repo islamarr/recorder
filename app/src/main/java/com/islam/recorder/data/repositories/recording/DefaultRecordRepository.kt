@@ -15,4 +15,8 @@ class DefaultRecordRepository @Inject constructor(private val db: AppDatabase) :
         db.getClipDao().hideDeletedItem(id)
     }
 
+    override suspend fun undoClip(id: Int){
+        db.getClipDao().undoDeletedItem(id)
+    }
+
 }

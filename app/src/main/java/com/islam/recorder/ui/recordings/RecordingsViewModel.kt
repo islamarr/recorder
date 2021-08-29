@@ -19,4 +19,8 @@ class RecordingsViewModel @Inject constructor(private val recordRepository: Reco
         recordRepository.deleteRecord(clipId)
     }
 
+    suspend fun undoClip(id: Int) {
+        recordRepository.undoClip(id)
+    }
+
 }
