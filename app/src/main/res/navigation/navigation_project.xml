@@ -11,7 +11,6 @@
         android:label="main"
         tools:layout="@layout/fragment_main">
 
-
         <action
             android:id="@+id/action_mainFragment_to_recordingsFragment"
             app:destination="@id/recordingsFragment"
@@ -27,6 +26,5 @@
         android:name="com.islam.recorder.ui.recordings.RecordingsFragment"
         android:label="recordings_fragment"
         tools:layout="@layout/fragment_recordings" />
-
 
 </navigation>

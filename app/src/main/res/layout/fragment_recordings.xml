@@ -22,4 +22,5 @@
         android:textColor="@color/gray_700"
         android:textSize="@dimen/txt_size_20"
         android:visibility="gone" />
+
 </FrameLayout>
