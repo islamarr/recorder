@@ -77,6 +77,7 @@ class RecordingsFragment : BaseFragment<FragmentRecordingsBinding>() {
             recordAdapter = RecordAdapter(clips)
             layoutManager = LinearLayoutManager(requireActivity())
             adapter = recordAdapter
+            scheduleLayoutAnimation()
         }
     }
 
