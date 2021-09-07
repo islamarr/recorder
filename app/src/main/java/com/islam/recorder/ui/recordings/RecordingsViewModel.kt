@@ -2,25 +2,31 @@ package com.islam.recorder.ui.recordings
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.islam.recorder.data.db.entities.Clip
-import com.islam.recorder.data.repositories.recording.RecordRepository
+import com.islam.domain.entites.ClipEntity
+import com.islam.domain.usecases.DeleteRecordUseCase
+import com.islam.domain.usecases.GetAllRecordUseCase
+import com.islam.domain.usecases.UndoClipUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class RecordingsViewModel @Inject constructor(private val recordRepository: RecordRepository) :
+class RecordingsViewModel @Inject constructor(
+    private val getAllRecordUseCase: GetAllRecordUseCase,
+    private val deleteRecordUseCase: DeleteRecordUseCase,
+    private val undoClipUseCase: UndoClipUseCase
+) :
     ViewModel() {
 
-    suspend fun getAllRecord(): LiveData<MutableList<Clip>> {
-        return recordRepository.getAllRecord()
+    suspend fun getAllRecord(): LiveData<MutableList<ClipEntity>> {
+        return getAllRecordUseCase.invoke()
     }
 
     suspend fun deleteRecord(clipId: Int) {
-        recordRepository.deleteRecord(clipId)
+        deleteRecordUseCase.invoke(clipId)
     }
 
     suspend fun undoClip(id: Int) {
-        recordRepository.undoClip(id)
+        undoClipUseCase.invoke(id)
     }
 
 }

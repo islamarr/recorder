@@ -14,7 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.islam.recorder.R
-import com.islam.recorder.data.db.entities.Clip
+import com.islam.domain.entites.ClipEntity
 import com.islam.recorder.databinding.FragmentMainBinding
 import com.islam.recorder.generalUtils.Utils
 import com.islam.recorder.ui.BaseFragment
@@ -99,14 +99,14 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
         }
     }
 
-    private fun getClipData(): Clip {
+    private fun getClipData(): ClipEntity {
         var recordLength: Long
         MediaMetadataRetriever().apply {
             setDataSource(getFile())
             recordLength = extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)?.toLong()!!
             release()
         }
-        return Clip(file = getFile(), length = recordLength, isDeleted = 0)
+        return ClipEntity(file = getFile(), length = recordLength, isDeleted = 0)
     }
 
     private fun startRecording() {

@@ -5,15 +5,19 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.islam.recorder.data.db.daos.ClipDao
-import com.islam.recorder.data.db.entities.Clip
+import com.islam.data.db.AppDatabase
+import com.islam.data.db.ClipDao
+import com.islam.domain.entites.ClipEntity
 import com.islam.recorder.getOrAwaitValue
 import junit.framework.TestCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.CoreMatchers.equalTo
-import org.junit.*
+import org.junit.After
 import org.junit.Assert.assertThat
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.IOException
 
@@ -43,7 +47,7 @@ class ClipDaoTest : TestCase() {
     @Test
     @Throws(Exception::class)
     fun insertNewClip_ReadInList() = runBlockingTest {
-        val clip = Clip(
+        val clip = ClipEntity(
             "file",
             2100,
             0
@@ -56,7 +60,7 @@ class ClipDaoTest : TestCase() {
     @Test
     @Throws(Exception::class)
     fun insertAndDeleteClip_ReturnEmptyList() = runBlockingTest {
-        val clip = Clip(
+        val clip = ClipEntity(
             "file",
             2100,
             0

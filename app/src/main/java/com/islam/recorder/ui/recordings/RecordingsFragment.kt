@@ -9,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.islam.recorder.data.db.entities.Clip
+import com.islam.domain.entites.ClipEntity
 import com.islam.recorder.databinding.FragmentRecordingsBinding
 import com.islam.recorder.ui.BaseFragment
 import com.islam.recorder.ui.adapters.RecordAdapter
@@ -48,7 +48,7 @@ class RecordingsFragment : BaseFragment<FragmentRecordingsBinding>() {
 
     }
 
-    private fun initTouch(clips: MutableList<Clip>) {
+    private fun initTouch(clips: MutableList<ClipEntity>) {
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             override fun onMove(
@@ -72,7 +72,7 @@ class RecordingsFragment : BaseFragment<FragmentRecordingsBinding>() {
         }).attachToRecyclerView(binding?.recordList)
     }
 
-    private fun initRecyclerView(clips: MutableList<Clip>) {
+    private fun initRecyclerView(clips: MutableList<ClipEntity>) {
         binding?.recordList?.apply {
             recordAdapter = RecordAdapter()
             recordAdapter.submitList(clips)

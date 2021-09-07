@@ -1,11 +1,10 @@
 package com.islam.recorder.di
 
 import android.content.Context
-import com.islam.recorder.data.db.AppDatabase
-import com.islam.recorder.data.repositories.main.DefaultMainRepository
-import com.islam.recorder.data.repositories.main.MainRepository
-import com.islam.recorder.data.repositories.recording.DefaultRecordRepository
-import com.islam.recorder.data.repositories.recording.RecordRepository
+import com.islam.data.db.AppDatabase
+import com.islam.data.repositories.*
+import com.islam.domain.repositories.MainRepository
+import com.islam.domain.repositories.RecordRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,14 +18,23 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideMainRepository(db: AppDatabase) =
-        DefaultMainRepository(db) as MainRepository
+    fun provideMainRepository(mainLocalDataSource: MainLocalDataSource) =
+        MainRepositoryImpl(mainLocalDataSource) as MainRepository
 
     @Singleton
     @Provides
-    fun provideRecordRepository(db: AppDatabase) =
-        DefaultRecordRepository(db) as RecordRepository
+    fun provideRecordRepository(recordLocalDataSource: RecordLocalDataSource) =
+        RecordRepositoryImpl(recordLocalDataSource) as RecordRepository
 
+    @Singleton
+    @Provides
+    fun provideMainLocalDataSource(db: AppDatabase): MainLocalDataSource =
+        MainLocalDataSourceImpl(db)
+
+    @Singleton
+    @Provides
+    fun provideRecordLocalDataSource(db: AppDatabase): RecordLocalDataSource =
+        RecordLocalDataSourceImpl(db)
 
     @Singleton
     @Provides

@@ -5,13 +5,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.islam.domain.entites.ClipEntity
 import com.islam.recorder.R
-import com.islam.recorder.data.db.entities.Clip
 import com.islam.recorder.databinding.ItemClipBinding
 import com.islam.recorder.generalUtils.Utils
 import com.islam.recorder.ui.recordings.RecordPlayer
 
-class RecordAdapter : ListAdapter<Clip, RecordAdapter.ViewHolder>(DiffCallback()) {
+class RecordAdapter : ListAdapter<ClipEntity, RecordAdapter.ViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -33,7 +33,7 @@ class RecordAdapter : ListAdapter<Clip, RecordAdapter.ViewHolder>(DiffCallback()
         private var label: TextView = itemView.label
         private var recordLength: TextView = itemView.recordLength
 
-        fun bind(listItems: Clip) {
+        fun bind(listItems: ClipEntity) {
             label.text = itemView.context.getString(R.string.recording, listItems.id)
             recordLength.text = Utils.millisToMinutesAndSeconds(listItems.length)
 
