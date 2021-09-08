@@ -1,14 +1,10 @@
 package com.islam.recorder.ui.main
 
-import android.Manifest
 import android.media.MediaMetadataRetriever
 import android.media.MediaRecorder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -25,30 +21,22 @@ import java.io.IOException
 private const val TAG = "MainFragment"
 
 @AndroidEntryPoint
-class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
+class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener,
+    PermissionRequestCallback {
 
     private val viewModel: MainViewModel by viewModels()
     var mediaRecorder: MediaRecorder? = null
     private var mStartRecording = false
     private lateinit var filePath: String
     private lateinit var fileName: String
-
-    private val mPermissionRequestLauncher = registerForActivityResult(
-        RequestPermission()
-    ) { result ->
-        if (result) {
-            mStartRecording = !mStartRecording
-            onRecord(mStartRecording)
-            changeMicUI(mStartRecording)
-        } else {
-            showAlertMessage()
-        }
-    }
+    private lateinit var permissionHelper: PermissionHelper
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMainBinding
         get() = FragmentMainBinding::inflate
 
     override fun setupOnViewCreated(view: View) {
+
+        permissionHelper = PermissionHelper(this, this)
 
         binding?.showRecordingsBtn?.setOnClickListener(this)
         binding?.startRecordBtn?.setOnClickListener(this)
@@ -62,16 +50,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
                 findNavController().navigate(MainFragmentDirections.actionMainFragmentToRecordingsFragment())
             }
             R.id.startRecordBtn -> {
-
-                if (Utils.isRecordPermissionGranted(requireContext())) {
-                    mStartRecording = !mStartRecording
-                    onRecord(mStartRecording)
-                    changeMicUI(mStartRecording)
-                    if (!mStartRecording) saveInDatabase()
-                } else {
-                    showAlertMessage()
-                }
-
+                permissionHelper.requestPermission()
             }
         }
     }
@@ -139,23 +118,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
         mediaRecorder = null
     }
 
-    private fun showAlertMessage() {
-        val builder = AlertDialog.Builder(requireActivity())
-        builder.setMessage(R.string.permission_message)
-
-        builder.setPositiveButton(R.string.allow) { _, _ ->
-            mPermissionRequestLauncher.launch(Manifest.permission.RECORD_AUDIO)
-        }
-        builder.setNegativeButton(R.string.deny) { _, _ ->
-            Toast.makeText(requireActivity(), R.string.permission_message, Toast.LENGTH_LONG)
-                .show()
-        }
-
-        val alertDialog: AlertDialog = builder.create()
-        alertDialog.setCancelable(false)
-        alertDialog.show()
-    }
-
     private fun changeMicUI(mStartRecording: Boolean) {
         when (mStartRecording) {
             true -> {
@@ -176,4 +138,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener {
             }
         }
     }
+
+    override fun onPermissionRequestCallback() {
+        mStartRecording = !mStartRecording
+        onRecord(mStartRecording)
+        changeMicUI(mStartRecording)
+        if (!mStartRecording) saveInDatabase()
+    }
+
 }

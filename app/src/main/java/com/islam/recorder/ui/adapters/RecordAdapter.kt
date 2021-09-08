@@ -30,8 +30,8 @@ class RecordAdapter : ListAdapter<Clip, RecordAdapter.ViewHolder>(DiffCallback()
     }
 
     inner class ViewHolder(itemView: ItemClipBinding) : RecyclerView.ViewHolder(itemView.root) {
-        private var label: TextView = itemView.label
-        private var recordLength: TextView = itemView.recordLength
+        private val label: TextView = itemView.label
+        private val recordLength: TextView = itemView.recordLength
 
         fun bind(listItems: Clip) {
             label.text = itemView.context.getString(R.string.recording, listItems.id)
