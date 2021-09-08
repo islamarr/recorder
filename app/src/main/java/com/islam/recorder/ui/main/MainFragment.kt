@@ -9,10 +9,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.islam.recorder.R
-import com.islam.recorder.data.db.entities.Clip
+import com.islam.recorder.domain.entites.Clip
 import com.islam.recorder.databinding.FragmentMainBinding
-import com.islam.recorder.generalUtils.Utils
-import com.islam.recorder.generalUtils.Utils.setImageColor
+import com.islam.recorder.common.Utils
+import com.islam.recorder.common.Utils.setImageColor
 import com.islam.recorder.ui.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

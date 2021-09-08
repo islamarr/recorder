@@ -1,4 +1,4 @@
-package com.islam.recorder.ui.adapters
+package com.islam.recorder.ui.recordings.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,9 +6,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.islam.recorder.R
-import com.islam.recorder.data.db.entities.Clip
+import com.islam.recorder.domain.entites.Clip
 import com.islam.recorder.databinding.ItemClipBinding
-import com.islam.recorder.generalUtils.Utils
+import com.islam.recorder.common.Utils
 import com.islam.recorder.ui.recordings.RecordPlayer
 
 class RecordAdapter : ListAdapter<Clip, RecordAdapter.ViewHolder>(DiffCallback()) {

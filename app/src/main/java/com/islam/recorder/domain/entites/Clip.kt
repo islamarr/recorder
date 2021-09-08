@@ -1,4 +1,4 @@
-package com.islam.recorder.data.db.entities
+package com.islam.recorder.domain.entites
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

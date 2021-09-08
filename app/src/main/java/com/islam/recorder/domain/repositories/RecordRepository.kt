@@ -1,7 +1,7 @@
-package com.islam.recorder.data.repositories.recording
+package com.islam.recorder.domain.repositories
 
 import androidx.lifecycle.LiveData
-import com.islam.recorder.data.db.entities.Clip
+import com.islam.recorder.domain.entites.Clip
 
 interface RecordRepository {
 

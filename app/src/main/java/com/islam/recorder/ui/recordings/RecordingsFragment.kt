@@ -9,10 +9,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.islam.recorder.data.db.entities.Clip
+import com.islam.recorder.domain.entites.Clip
 import com.islam.recorder.databinding.FragmentRecordingsBinding
 import com.islam.recorder.ui.BaseFragment
-import com.islam.recorder.ui.adapters.RecordAdapter
+import com.islam.recorder.ui.recordings.adapter.RecordAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

@@ -1,8 +1,8 @@
 package com.islam.recorder.data.repositories.main
 
-import com.islam.recorder.data.db.entities.Clip
+import com.islam.recorder.domain.entites.Clip
 
-interface MainRepository {
+interface MainLocalDataSource {
 
     suspend fun saveRecord(clip: Clip)
 

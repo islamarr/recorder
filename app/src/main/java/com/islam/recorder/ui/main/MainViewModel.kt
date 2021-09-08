@@ -1,8 +1,8 @@
 package com.islam.recorder.ui.main
 
 import androidx.lifecycle.ViewModel
-import com.islam.recorder.data.db.entities.Clip
-import com.islam.recorder.data.repositories.main.MainRepository
+import com.islam.recorder.domain.entites.Clip
+import com.islam.recorder.domain.repositories.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

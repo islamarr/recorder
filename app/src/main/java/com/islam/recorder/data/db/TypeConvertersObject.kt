@@ -1,4 +1,4 @@
-package com.islam.recorder.generalUtils
+package com.islam.recorder.data.db
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson

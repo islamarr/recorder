@@ -5,8 +5,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.islam.recorder.R
-import com.islam.recorder.generalUtils.Utils
-import com.islam.recorder.generalUtils.Utils.toast
+import com.islam.recorder.common.Utils
+import com.islam.recorder.common.Utils.toast
 
 class PermissionHelper(
     private val fragment: Fragment,

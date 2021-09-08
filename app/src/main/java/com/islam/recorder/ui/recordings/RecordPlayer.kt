@@ -1,7 +1,7 @@
 package com.islam.recorder.ui.recordings
 
 import android.media.MediaPlayer
-import com.islam.recorder.generalUtils.Utils
+import com.islam.recorder.common.Utils
 import java.io.IOException
 
 private const val TAG = "RecordPlayer"

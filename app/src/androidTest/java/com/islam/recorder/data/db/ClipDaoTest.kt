@@ -5,8 +5,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.islam.recorder.data.db.daos.ClipDao
-import com.islam.recorder.data.db.entities.Clip
+import com.islam.recorder.domain.entites.Clip
 import com.islam.recorder.getOrAwaitValue
 import junit.framework.TestCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi

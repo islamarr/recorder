@@ -1,7 +1,8 @@
-package com.islam.recorder
+package com.islam.recorder.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.islam.recorder.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

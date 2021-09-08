@@ -1,11 +1,11 @@
-package com.islam.recorder.data.db.daos
+package com.islam.recorder.data.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.islam.recorder.data.db.entities.Clip
+import com.islam.recorder.domain.entites.Clip
 
 @Dao
 interface ClipDao {

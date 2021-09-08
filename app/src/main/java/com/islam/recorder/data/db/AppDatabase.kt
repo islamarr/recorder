@@ -5,9 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.islam.recorder.data.db.daos.ClipDao
-import com.islam.recorder.data.db.entities.Clip
-import com.islam.recorder.generalUtils.TypeConvertersObject
+import com.islam.recorder.domain.entites.Clip
 
 @Database(
     entities = [Clip::class],

@@ -1,4 +1,4 @@
-package com.islam.recorder.generalUtils
+package com.islam.recorder.common
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

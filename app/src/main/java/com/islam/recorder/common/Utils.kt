@@ -1,4 +1,4 @@
-package com.islam.recorder.generalUtils
+package com.islam.recorder.common
 
 import android.Manifest
 import android.content.Context

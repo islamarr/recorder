@@ -1,7 +1,7 @@
-package com.islam.recorder.ui.adapters
+package com.islam.recorder.ui.recordings.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.islam.recorder.data.db.entities.Clip
+import com.islam.recorder.domain.entites.Clip
 
 class DiffCallback : DiffUtil.ItemCallback<Clip>() {
 

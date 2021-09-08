@@ -1,4 +1,4 @@
-package com.islam.recorder
+package com.islam.recorder.common
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
