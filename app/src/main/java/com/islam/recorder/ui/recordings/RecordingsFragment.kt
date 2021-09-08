@@ -31,15 +31,7 @@ class RecordingsFragment : BaseFragment<FragmentRecordingsBinding>() {
         lifecycleScope.launch {
             viewModel.getAllRecord().observe(viewLifecycleOwner, Observer { clips ->
 
-                if (clips.isEmpty()) {
-                    binding?.recordList?.visibility = View.GONE
-                    binding?.emptyList?.visibility = View.VISIBLE
-                    return@Observer
-                } else {
-                    binding?.recordList?.visibility = View.VISIBLE
-                    binding?.emptyList?.visibility = View.GONE
-                }
-
+                showRecordList(clips.isEmpty())
                 initRecyclerView(clips)
                 initTouch(clips)
 
@@ -48,28 +40,15 @@ class RecordingsFragment : BaseFragment<FragmentRecordingsBinding>() {
 
     }
 
-    private fun initTouch(clips: MutableList<Clip>) {
-
-        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                return false
-            }
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-
-                lifecycleScope.launch {
-                    val clipId = clips[viewHolder.adapterPosition].id
-                    viewModel.deleteRecord(clipId)
-                }
-                clips.removeAt(viewHolder.adapterPosition)
-                recordAdapter.notifyItemRemoved(viewHolder.adapterPosition)
-
-            }
-        }).attachToRecyclerView(binding?.recordList)
+    private fun showRecordList(isClipsListEmpty: Boolean) {
+        if (isClipsListEmpty) {
+            binding?.recordList?.visibility = View.GONE
+            binding?.emptyList?.visibility = View.VISIBLE
+            return
+        } else {
+            binding?.recordList?.visibility = View.VISIBLE
+            binding?.emptyList?.visibility = View.GONE
+        }
     }
 
     private fun initRecyclerView(clips: MutableList<Clip>) {
@@ -82,9 +61,40 @@ class RecordingsFragment : BaseFragment<FragmentRecordingsBinding>() {
         }
     }
 
+    private fun initTouch(clips: MutableList<Clip>) {
+
+        val itemTouchHelper =
+            ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    return false
+                }
+
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+
+                    deleteOneClip(viewHolder.adapterPosition, clips)
+
+                }
+            })
+
+        itemTouchHelper.attachToRecyclerView(binding?.recordList)
+    }
+
+    private fun deleteOneClip(adapterPosition: Int, clips: MutableList<Clip>) {
+        lifecycleScope.launch {
+            val clipId = clips[adapterPosition].id
+            viewModel.deleteRecord(clipId)
+        }
+        clips.removeAt(adapterPosition)
+        recordAdapter.notifyItemRemoved(adapterPosition)
+    }
+
     override fun onStop() {
         super.onStop()
-
         recordPlayer.onPlay(false)
     }
+
 }
