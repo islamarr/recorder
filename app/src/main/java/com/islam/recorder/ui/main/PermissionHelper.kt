@@ -1,12 +1,12 @@
 package com.islam.recorder.ui.main
 
 import android.Manifest
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.islam.recorder.R
 import com.islam.recorder.generalUtils.Utils
+import com.islam.recorder.generalUtils.Utils.toast
 
 class PermissionHelper(
     private val fragment: Fragment,
@@ -41,12 +41,7 @@ class PermissionHelper(
             mPermissionRequestLauncher.launch(Manifest.permission.RECORD_AUDIO)
         }
         builder.setNegativeButton(R.string.deny) { _, _ ->
-            Toast.makeText(
-                fragment.requireContext(),
-                R.string.permission_message,
-                Toast.LENGTH_LONG
-            )
-                .show()
+            fragment.requireContext().toast(R.string.permission_message)
         }
 
         val alertDialog: AlertDialog = builder.create()

@@ -4,6 +4,8 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.util.Log
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.islam.recorder.BuildConfig
 
@@ -33,5 +35,16 @@ object Utils {
         if (secondsInt < 10) seconds = "0$seconds"
 
         return "$minutes : $seconds"
+    }
+
+    fun Context.toast(msg: Int) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+    }
+
+    fun Context.setImageColor(imageView: ImageView?, color: Int) {
+        imageView?.setColorFilter(
+            ContextCompat.getColor(this, color),
+            android.graphics.PorterDuff.Mode.SRC_IN
+        )
     }
 }

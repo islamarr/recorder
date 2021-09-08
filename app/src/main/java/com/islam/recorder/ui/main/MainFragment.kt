@@ -5,7 +5,6 @@ import android.media.MediaRecorder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -13,6 +12,7 @@ import com.islam.recorder.R
 import com.islam.recorder.data.db.entities.Clip
 import com.islam.recorder.databinding.FragmentMainBinding
 import com.islam.recorder.generalUtils.Utils
+import com.islam.recorder.generalUtils.Utils.setImageColor
 import com.islam.recorder.ui.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -121,20 +121,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener,
     private fun changeMicUI(mStartRecording: Boolean) {
         when (mStartRecording) {
             true -> {
-                binding?.startRecordBtn?.setColorFilter(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.gray_700
-                    ), android.graphics.PorterDuff.Mode.SRC_IN
-                )
+                requireContext().setImageColor(binding?.startRecordBtn, R.color.gray_700)
             }
             false -> {
-                binding?.startRecordBtn?.setColorFilter(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.teal_700
-                    ), android.graphics.PorterDuff.Mode.SRC_IN
-                )
+                requireContext().setImageColor(binding?.startRecordBtn, R.color.teal_700)
             }
         }
     }
