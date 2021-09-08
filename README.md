@@ -11,6 +11,8 @@
 8- Data Binding <br>
 9- Unit testing (local tests + instrumented tests) <br><br>
 
+![architecture pattern](https://github.com/islamarr/recorder/blob/master/app/src/main/res/drawable/img_architecture_pattern.png)
+
 **RecyclerView vs Listview**
 
 - In RecyclerView, it is mandatory to use ViewHolder pattern Which optimize the performance.
