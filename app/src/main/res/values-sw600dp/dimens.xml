@@ -1,0 +1,19 @@
+<resources>
+    <!-- font sizes -->
+    <dimen name="font_huge">28sp</dimen>
+    <dimen name="font_xLarge">24sp</dimen>
+    <dimen name="font_large">22sp</dimen>
+    <dimen name="font_normal">20sp</dimen>
+    <dimen name="font_small">16sp</dimen>
+
+    <!-- typical spacing between two views -->
+    <dimen name="spacing_huge">45dp</dimen>
+    <dimen name="spacing_large">25dp</dimen>
+    <dimen name="spacing_normal">30dp</dimen>
+    <dimen name="spacing_small">15dp</dimen>
+
+    <!-- typical sizes of views -->
+    <dimen name="img_height_tall">200dp</dimen>
+    <dimen name="img_height_normal">180dp</dimen>
+
+</resources>

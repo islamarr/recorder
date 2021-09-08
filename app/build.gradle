@@ -98,6 +98,8 @@ dependencies {
     androidTestImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
     // Make Hilt generate code in the androidTest folder
     kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hilt_version"
+    // For permissions
+    androidTestImplementation 'androidx.test:rules:1.4.0'
 
     debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
     debugImplementation "androidx.test:core:$androidXTestCoreVersion"
