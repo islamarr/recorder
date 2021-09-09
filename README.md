@@ -10,7 +10,8 @@
 7- Navigation component <br>
 8- Data Binding <br>
 9- Room DB <br>
-10- Unit testing (local tests + instrumented tests) <br><br>
+10- Coroutines <br>
+11- Unit testing (local tests + instrumented tests) <br><br>
 
 ![architecture pattern](https://github.com/islamarr/recorder/blob/master/app/src/main/res/drawable/img_architecture_pattern.jpg)
 

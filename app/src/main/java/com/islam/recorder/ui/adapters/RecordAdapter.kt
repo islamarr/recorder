@@ -11,7 +11,7 @@ import com.islam.recorder.databinding.ItemClipBinding
 import com.islam.recorder.generalUtils.Utils
 import com.islam.recorder.ui.recordings.RecordPlayer
 
-class RecordAdapter : ListAdapter<Clip, RecordAdapter.ViewHolder>(DiffCallback()) {
+class RecordAdapter : ListAdapter<Clip, RecordAdapter.ViewHolder>(RecordDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
