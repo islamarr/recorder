@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,7 +28,7 @@ class RecordingsFragment : BaseFragment<FragmentRecordingsBinding>() {
     override fun setupOnViewCreated(view: View) {
 
         lifecycleScope.launch {
-            viewModel.getAllRecord().observe(viewLifecycleOwner, Observer { clips ->
+            viewModel.getAllRecord().observe(viewLifecycleOwner, { clips ->
 
                 showRecordList(clips.isEmpty())
                 initRecyclerView(clips)

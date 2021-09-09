@@ -12,8 +12,11 @@ import junit.framework.TestCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.CoreMatchers.equalTo
-import org.junit.*
+import org.junit.After
 import org.junit.Assert.assertThat
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.IOException
 

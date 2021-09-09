@@ -25,7 +25,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener,
     PermissionRequestCallback {
 
     private val viewModel: MainViewModel by viewModels()
-    var mediaRecorder: MediaRecorder? = null
+    private var mediaRecorder: MediaRecorder? = null
     private var mStartRecording = false
     private lateinit var filePath: String
     private lateinit var fileName: String

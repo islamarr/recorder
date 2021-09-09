@@ -3,9 +3,7 @@ package com.islam.recorder.ui.main
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
