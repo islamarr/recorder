@@ -1,22 +1,22 @@
 package com.islam.recorder.data.repositories.recording
 
 import androidx.lifecycle.LiveData
-import com.islam.recorder.data.db.AppDatabase
+import com.islam.recorder.data.db.daos.ClipDao
 import com.islam.recorder.data.db.entities.Clip
 import javax.inject.Inject
 
-class DefaultRecordRepository @Inject constructor(private val db: AppDatabase) : RecordRepository {
+class DefaultRecordRepository @Inject constructor(private val clipDao: ClipDao) : RecordRepository {
 
     override suspend fun getAllRecord(): LiveData<MutableList<Clip>> {
-        return db.getClipDao().getAllClips()
+        return clipDao.getAllClips()
     }
 
     override suspend fun deleteRecord(id: Int) {
-        db.getClipDao().hideDeletedItem(id)
+        clipDao.hideDeletedItem(id)
     }
 
-    override suspend fun undoClip(id: Int){
-        db.getClipDao().undoDeletedItem(id)
+    override suspend fun undoClip(id: Int) {
+        clipDao.undoDeletedItem(id)
     }
 
 }
