@@ -5,7 +5,7 @@ import com.islam.recorder.data.db.daos.ClipDao
 import com.islam.recorder.data.db.entities.Clip
 import javax.inject.Inject
 
-class DefaultRecordRepository @Inject constructor(private val clipDao: ClipDao) : RecordRepository {
+class RecordRepositoryImpl @Inject constructor(private val clipDao: ClipDao) : RecordRepository {
 
     override suspend fun getAllRecord(): LiveData<MutableList<Clip>> {
         return clipDao.getAllClips()

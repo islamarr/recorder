@@ -3,9 +3,9 @@ package com.islam.recorder.di
 import android.content.Context
 import com.islam.recorder.data.db.AppDatabase
 import com.islam.recorder.data.db.daos.ClipDao
-import com.islam.recorder.data.repositories.main.DefaultMainRepository
+import com.islam.recorder.data.repositories.main.MainRepositoryImpl
 import com.islam.recorder.data.repositories.main.MainRepository
-import com.islam.recorder.data.repositories.recording.DefaultRecordRepository
+import com.islam.recorder.data.repositories.recording.RecordRepositoryImpl
 import com.islam.recorder.data.repositories.recording.RecordRepository
 import dagger.Module
 import dagger.Provides
@@ -21,7 +21,7 @@ object AppModule {
     @Singleton
     @Provides
     fun provideMainRepository(clipDao: ClipDao) =
-        DefaultMainRepository(clipDao) as MainRepository
+        MainRepositoryImpl(clipDao) as MainRepository
 
     @Provides
     @Singleton
@@ -30,7 +30,7 @@ object AppModule {
     @Singleton
     @Provides
     fun provideRecordRepository(clipDao: ClipDao) =
-        DefaultRecordRepository(clipDao) as RecordRepository
+        RecordRepositoryImpl(clipDao) as RecordRepository
 
     @Singleton
     @Provides
