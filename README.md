@@ -15,6 +15,8 @@
 
 ![architecture pattern](https://github.com/islamarr/recorder/blob/master/app/src/main/res/drawable/img_architecture_pattern.jpg)
 
+# Technical choices
+
 **RecyclerView vs Listview**
 
 - In RecyclerView, it is mandatory to use ViewHolder pattern Which optimize the performance.
@@ -34,4 +36,9 @@ AndroidViewModel is a Application context aware ViewModel. As I didn't need to u
 
 In cases where I wanted to test the behavior of some screens in a real device I used instrumented test by Espresso and Mockito.
 In the functions I didn't need a physical device I used the local Unit Tests.
+
+**Hilt vs Dagger2 vs Koin**
+
+- Hilt does not need factories for ViewModel , Dagger need
+- Hilt generate the code in the compile time , koin runtime generation code
 
