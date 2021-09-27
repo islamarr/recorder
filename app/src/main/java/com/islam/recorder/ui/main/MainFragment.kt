@@ -27,8 +27,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener,
     private val viewModel: MainViewModel by viewModels()
     private var mediaRecorder: MediaRecorder? = null
     private var mStartRecording = false
-    private lateinit var filePath: String
-    private lateinit var fileName: String
+    private lateinit var randomName: String
     private lateinit var permissionHelper: PermissionHelper
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMainBinding
@@ -41,7 +40,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener,
         binding?.showRecordingsBtn?.setOnClickListener(this)
         binding?.startRecordBtn?.setOnClickListener(this)
 
-        filePath = "${requireActivity().externalCacheDir?.absolutePath}/"
     }
 
     override fun onClick(v: View?) {
@@ -56,8 +54,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener,
     }
 
     private fun onRecord(start: Boolean) = if (start) {
-        fileName = "Record_${System.currentTimeMillis()}.3gp"
-        startRecording()
+        randomName = System.currentTimeMillis().toString()
+        val file = getFile(randomName)
+        startRecording(file)
     } else {
         stopRecording()
     }
@@ -72,27 +71,28 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener,
     }
 
     private fun saveInDatabase() {
-        val clip = getClipData()
+        val file = getFile(randomName)
+        val clip = getClipData(file)
         lifecycleScope.launch {
             viewModel.saveRecord(clip)
         }
     }
 
-    private fun getClipData(): Clip {
+    private fun getClipData(file: String): Clip {
         var recordLength: Long
         MediaMetadataRetriever().apply {
-            setDataSource(getFile())
+            setDataSource(file)
             recordLength = extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)?.toLong()!!
             release()
         }
-        return Clip(file = getFile(), length = recordLength, isDeleted = 0)
+        return Clip(file = file, length = recordLength, isDeleted = 0)
     }
 
-    private fun startRecording() {
+    private fun startRecording(file: String) {
         mediaRecorder = MediaRecorder().apply {
             setAudioSource(MediaRecorder.AudioSource.MIC)
             setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
-            setOutputFile(getFile())
+            setOutputFile(file)
             setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
 
             try {
@@ -105,7 +105,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), View.OnClickListener,
         }
     }
 
-    private fun getFile(): String {
+    private fun getFile(randomName: String): String {
+        val filePath = "${requireActivity().externalCacheDir?.absolutePath}/"
+        val fileName = "Record_$randomName.3gp"
         return filePath + fileName
     }
 
