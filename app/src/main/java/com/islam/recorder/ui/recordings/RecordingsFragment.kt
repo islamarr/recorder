@@ -28,7 +28,9 @@ class RecordingsFragment : BaseFragment<FragmentRecordingsBinding>() {
 
     override fun setupOnViewCreated(view: View) {
 
-        lifecycleScope.launch {
+        lifecycleScope.launch { //TODO
+            // The ViewModel should create coroutines
+            // https://developer.android.com/kotlin/coroutines/coroutines-best-practices#viewmodel-coroutines
             viewModel.getAllRecord().observe(viewLifecycleOwner, Observer { clips ->
 
                 if (clips.isEmpty()) {
